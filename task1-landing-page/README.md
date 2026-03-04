@@ -45,7 +45,7 @@ https://saireddy-sm.github.io/OIBSIP_Web_Development_Internship/task1-landing-pa
 
 ---
 ##Screenshot
-<img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/a1d66474-7137-4f88-9045-a151a580d697" />
+<img width="1366" height="768" alt="image" src="blob:https://web.whatsapp.com/6315d0a0-7564-440e-a75c-176c0a956668" />
 
 ##Live link
 file:///C:/OIBSIP%20Internship/Landing%20Page/Index.html#
