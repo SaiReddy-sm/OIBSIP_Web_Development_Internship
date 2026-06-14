@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Advanced Temperature Converter | Sai Reddy</title>
+    <title>Temperature Converter | Sai Reddy</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <!-- FontAwesome Icons for visual indicators -->
+    <!-- FontAwesome for modern icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
 <body>
@@ -18,7 +18,7 @@
         <h1>Temperature Converter</h1>
     </header>
 
-    <!-- Main Input Section -->
+    <!-- Temperature Input Form -->
     <div class="input-section">
         <label for="temperature" class="field-label">Enter Temperature</label>
         <div class="input-group">
@@ -32,13 +32,13 @@
         <div id="validation-warning" class="warning-box"></div>
     </div>
 
-    <!-- Control Actions -->
+    <!-- Convert & Clear Controls -->
     <div class="action-buttons">
         <button onclick="convertTemp()" class="btn-primary"><i class="fa-solid fa-rotate"></i> Convert</button>
         <button onclick="clearAll()" class="btn-secondary"><i class="fa-solid fa-trash-can"></i> Clear</button>
     </div>
 
-    <!-- Output Display Cards -->
+    <!-- Dedicated Converted Result Cards -->
     <div class="results-container">
         <div class="result-card" id="card-one">
             <span class="card-label" id="label-one">Fahrenheit</span>
@@ -78,7 +78,7 @@
         </ul>
     </div>
 
-    <!-- Theme Control Option -->
+    <!-- Toggle Dark Mode Option -->
     <button class="toggle" id="theme-toggle" onclick="toggleMode()">
         <i class="fa-solid fa-moon"></i> <span>Toggle Dark Mode</span>
     </button>
