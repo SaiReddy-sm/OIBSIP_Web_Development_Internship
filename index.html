@@ -18,8 +18,10 @@
 
         body {
             font-family: 'Outfit', sans-serif;
-            /* Premium deep space multi-color linear gradient */
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #090d16 100%);
+            /* Infinite, slowly moving deep-space nebula background */
+            background: linear-gradient(125deg, #02000a, #0b0728, #180c42, #02000a);
+            background-size: 400% 400%;
+            animation: glowNebula 18s ease infinite;
             background-attachment: fixed;
             color: #f8fafc;
             text-align: center;
@@ -27,33 +29,84 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Twinkling CSS-only space starfield */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            background-image: 
+                radial-gradient(1px 1px at 20px 30px, #ffffff, rgba(0,0,0,0)),
+                radial-gradient(1.5px 1.5px at 50px 70px, #ffffff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 80px 160px, #ffffff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 120px 40px, #ffffff, rgba(0,0,0,0)),
+                radial-gradient(1.5px 1.5px at 160px 100px, #f472b6, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 210px 130px, #60a5fa, rgba(0,0,0,0));
+            background-size: 260px 260px;
+            animation: starTwinkle 10s linear infinite;
+            opacity: 0.65;
+        }
+
+        /* Animated floating cosmic background blobs */
+        .galaxy-orb {
+            position: fixed;
+            width: 320px;
+            height: 320px;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.22;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .orb-pink {
+            background: #ec4899;
+            top: 10%;
+            left: -5%;
+            animation: orbMove 15s infinite alternate ease-in-out;
+        }
+        .orb-blue {
+            background: #3b82f6;
+            bottom: 10%;
+            right: -5%;
+            animation: orbMove 20s infinite alternate-reverse ease-in-out;
         }
 
         header {
+            position: relative;
+            z-index: 1;
             padding: 60px 20px 20px;
             animation: fadeIn 0.8s ease-out;
         }
 
         h1 {
-            font-size: clamp(1.8rem, 5vw, 2.6rem);
+            font-size: clamp(1.8rem, 5vw, 2.7rem);
             font-weight: 900;
             letter-spacing: -1px;
-            /* Gorgeous gradient title highlight */
-            background: linear-gradient(135deg, #60a5fa, #c084fc, #f472b6);
+            /* Cosmic light spectrum title gradient */
+            background: linear-gradient(135deg, #a5b4fc, #ec4899, #818cf8);
+            background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 8px;
+            animation: flowTitle 6s linear infinite;
         }
 
         header p {
             font-size: 0.95rem;
-            color: #94a3b8;
+            color: #cbd5e1;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
         }
 
         .container {
+            position: relative;
+            z-index: 1;
             display: flex;
             justify-content: center;
             align-items: stretch;
@@ -64,17 +117,17 @@
             margin: 0 auto;
         }
 
-        /* Glassmorphism project card styling */
+        /* Cosmic Glassmorphism Cards */
         .card {
-            background: rgba(30, 41, 59, 0.7);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(15, 23, 42, 0.45);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
             color: #f8fafc;
             width: 300px;
-            padding: 30px 24px;
-            border-radius: 18px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3),
+            padding: 35px 24px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.45),
                         inset 0 1px 0 rgba(255, 255, 255, 0.05);
             transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
                         border-color 0.4s ease, 
@@ -86,9 +139,9 @@
         }
 
         .card:hover {
-            transform: translateY(-8px);
-            border-color: rgba(96, 165, 250, 0.4);
-            box-shadow: 0 20px 40px rgba(96, 165, 250, 0.12);
+            transform: translateY(-8px) scale(1.02);
+            border-color: rgba(236, 72, 153, 0.45);
+            box-shadow: 0 20px 40px rgba(236, 72, 153, 0.15);
         }
 
         .card h3 {
@@ -101,32 +154,33 @@
 
         .card p {
             font-size: 0.9rem;
-            color: #cbd5e1;
+            color: #94a3b8;
             line-height: 1.6;
             margin-bottom: auto;
         }
 
-        /* Standardized elegant call-to-action button */
+        /* Cohesive neon/cosmic gradient action buttons */
         .btn {
             display: inline-block;
             margin-top: 24px;
-            padding: 11px 22px;
-            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #ec4899, #8b5cf6, #3b82f6);
+            background-size: 150% 150%;
             color: #ffffff;
             text-decoration: none;
-            border-radius: 10px;
+            border-radius: 12px;
             font-weight: 700;
             font-size: 0.88rem;
             letter-spacing: 0.5px;
-            transition: all 0.25s ease;
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .btn:hover {
             transform: translateY(-1.5px);
-            box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35);
-            filter: brightness(1.08);
+            box-shadow: 0 8px 20px rgba(139, 92, 246, 0.5);
+            filter: brightness(1.1);
         }
 
         .btn:active {
@@ -134,21 +188,42 @@
         }
 
         footer {
+            position: relative;
+            z-index: 1;
             padding: 30px 20px;
             font-size: 0.85rem;
-            color: #94a3b8;
-            font-weight: 500;
-            letter-spacing: 0.5px;
+            color: #64748b;
+            font-weight: 600;
+            letter-spacing: 1px;
         }
 
-        /* Entry Animations */
+        /* ==========================================
+           KEYFRAME GALAXY ANIMATION SECTIONS
+           ========================================== */
+        @keyframes glowNebula {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        @keyframes starTwinkle {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 0.85; }
+        }
+
+        @keyframes orbMove {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(30px, -40px) scale(1.15); }
+        }
+
+        @keyframes flowTitle {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         @keyframes slideUp {
@@ -172,10 +247,18 @@
             .card {
                 width: 100%;
             }
+            .galaxy-orb {
+                width: 200px;
+                height: 200px;
+            }
         }
     </style>
 </head>
 <body>
+
+<!-- Animated background galaxy spaces -->
+<div class="galaxy-orb orb-pink"></div>
+<div class="galaxy-orb orb-blue"></div>
 
 <header>
     <h1>Oasis Infobyte Internship Projects</h1>
