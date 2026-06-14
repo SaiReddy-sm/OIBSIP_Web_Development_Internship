@@ -15,7 +15,7 @@ The internship focuses on strengthening web development fundamentals through han
 
 ---
 # Live Demo
-https://saireddy-sm.github.io/OIBSIP_Web_Development_Internship/
+[View Projects](https://saireddy-sm.github.io/OIBSIP_Web_Development_Internship/)
 
 ### 🛠 Technologies Used
 - HTML5
