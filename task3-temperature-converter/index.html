@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Temperature Converter | Sai Reddy</title>
+    <title>ThermoCalc Pro | Temperature Converter</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <!-- FontAwesome for modern icons -->
+    <!-- FontAwesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
 <body>
@@ -13,9 +13,10 @@
 <div class="container">
     <header>
         <div class="logo-area">
-            <i class="fa-solid fa-temperature-half logo-icon"></i>
+            <i class="fa-solid fa-temperature-empty logo-icon" id="thermometer-icon"></i>
         </div>
-        <h1>Temperature Converter</h1>
+        <h1>ThermoCalc Pro</h1>
+        <p class="subtitle">Intelligent Temperature Analytics</p>
     </header>
 
     <!-- Temperature Input Form -->
@@ -23,6 +24,11 @@
         <label for="temperature" class="field-label">Enter Temperature</label>
         <div class="input-group">
             <input type="number" id="temperature" placeholder="0.00" step="any" oninput="convertTemp()">
+            
+            <button class="swap-btn" onclick="swapUnits()" title="Swap Units">
+                <i class="fa-solid fa-right-left"></i>
+            </button>
+
             <select id="unit" onchange="convertTemp()">
                 <option value="celsius">Celsius (°C)</option>
                 <option value="fahrenheit">Fahrenheit (°F)</option>
@@ -32,13 +38,35 @@
         <div id="validation-warning" class="warning-box"></div>
     </div>
 
-    <!-- Convert & Clear Controls -->
+    <!-- Quick Temperature Presets -->
+    <div class="presets-section">
+        <span class="field-label">Quick Benchmarks</span>
+        <div class="presets-grid">
+            <button onclick="applyPreset(0, 'celsius')">Freezing (0°C)</button>
+            <button onclick="applyPreset(20, 'celsius')">Room (20°C)</button>
+            <button onclick="applyPreset(37, 'celsius')">Body (37°C)</button>
+            <button onclick="applyPreset(100, 'celsius')">Boiling (100°C)</button>
+        </div>
+    </div>
+
+    <!-- Action Buttons -->
     <div class="action-buttons">
-        <button onclick="convertTemp()" class="btn-primary"><i class="fa-solid fa-rotate"></i> Convert</button>
+        <button onclick="convertTemp()" class="btn-primary"><i class="fa-solid fa-bolt"></i> Convert</button>
         <button onclick="clearAll()" class="btn-secondary"><i class="fa-solid fa-trash-can"></i> Clear</button>
     </div>
 
-    <!-- Dedicated Converted Result Cards -->
+    <!-- Dynamic Level Gauge Meter -->
+    <div class="meter-section">
+        <div class="meter-header">
+            <span class="field-label">Thermal Intensity Level</span>
+            <span id="meter-status" class="status-indicator">Moderate</span>
+        </div>
+        <div class="meter-track">
+            <div id="meter-fill" class="meter-fill"></div>
+        </div>
+    </div>
+
+    <!-- Results Display Cards -->
     <div class="results-container">
         <div class="result-card" id="card-one">
             <span class="card-label" id="label-one">Fahrenheit</span>
@@ -63,22 +91,22 @@
 
     <!-- Formula Detail Breakdown -->
     <div class="info-accordion">
-        <div class="info-header"><i class="fa-solid fa-circle-info"></i> Calculation Formula</div>
-        <div class="info-body" id="formula-display">Enter a temperature value to see the formula.</div>
+        <div class="info-header"><i class="fa-solid fa-circle-info"></i> Formula Steps</div>
+        <div class="info-body" id="formula-display">Input a value to show step-by-step math.</div>
     </div>
 
     <!-- Conversion History Log -->
     <div class="history-panel">
         <div class="history-header">
             <span><i class="fa-solid fa-clock-rotate-left"></i> Recent Activity</span>
-            <button class="clear-history" onclick="clearHistory()">Clear All</button>
+            <button class="clear-history" onclick="clearHistory()">Clear Log</button>
         </div>
         <ul class="history-list" id="history-list">
             <li class="empty-history">No recent conversions</li>
         </ul>
     </div>
 
-    <!-- Toggle Dark Mode Option -->
+    <!-- Toggle Theme Button -->
     <button class="toggle" id="theme-toggle" onclick="toggleMode()">
         <i class="fa-solid fa-moon"></i> <span>Toggle Dark Mode</span>
     </button>
