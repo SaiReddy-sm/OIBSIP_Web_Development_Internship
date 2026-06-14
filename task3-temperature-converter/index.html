@@ -2,33 +2,88 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Temperature Converter | Sai Reddy</title>
+    <title>Advanced Temperature Converter | Sai Reddy</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <!-- FontAwesome Icons for visual indicators -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
 <body>
 
 <div class="container">
-    <h1>🌡 Temperature Converter</h1>
+    <header>
+        <div class="logo-area">
+            <i class="fa-solid fa-temperature-half logo-icon"></i>
+        </div>
+        <h1>Temperature Converter</h1>
+    </header>
 
-    <div class="input-group">
-        <input type="number" id="temperature" placeholder="Enter temperature">
-        
-        <select id="unit">
-            <option value="celsius">Celsius (°C)</option>
-            <option value="fahrenheit">Fahrenheit (°F)</option>
-            <option value="kelvin">Kelvin (K)</option>
-        </select>
+    <!-- Main Input Section -->
+    <div class="input-section">
+        <label for="temperature" class="field-label">Enter Temperature</label>
+        <div class="input-group">
+            <input type="number" id="temperature" placeholder="0.00" step="any" oninput="convertTemp()">
+            <select id="unit" onchange="convertTemp()">
+                <option value="celsius">Celsius (°C)</option>
+                <option value="fahrenheit">Fahrenheit (°F)</option>
+                <option value="kelvin">Kelvin (K)</option>
+            </select>
+        </div>
+        <div id="validation-warning" class="warning-box"></div>
     </div>
 
-    <button onclick="convertTemp()">Convert</button>
+    <!-- Control Actions -->
+    <div class="action-buttons">
+        <button onclick="convertTemp()" class="btn-primary"><i class="fa-solid fa-rotate"></i> Convert</button>
+        <button onclick="clearAll()" class="btn-secondary"><i class="fa-solid fa-trash-can"></i> Clear</button>
+    </div>
 
-    <div class="result" id="result"></div>
+    <!-- Output Display Cards -->
+    <div class="results-container">
+        <div class="result-card" id="card-one">
+            <span class="card-label" id="label-one">Fahrenheit</span>
+            <div class="card-output">
+                <span id="output-one">--</span>
+                <button class="copy-btn" onclick="copyResult('output-one', this)" title="Copy Result">
+                    <i class="fa-regular fa-copy"></i>
+                </button>
+            </div>
+        </div>
 
-    <button class="toggle" onclick="toggleMode()">🌙 Toggle Dark Mode</button>
+        <div class="result-card" id="card-two">
+            <span class="card-label" id="label-two">Kelvin</span>
+            <div class="card-output">
+                <span id="output-two">--</span>
+                <button class="copy-btn" onclick="copyResult('output-two', this)" title="Copy Result">
+                    <i class="fa-regular fa-copy"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Formula Detail Breakdown -->
+    <div class="info-accordion">
+        <div class="info-header"><i class="fa-solid fa-circle-info"></i> Calculation Formula</div>
+        <div class="info-body" id="formula-display">Enter a temperature value to see the formula.</div>
+    </div>
+
+    <!-- Conversion History Log -->
+    <div class="history-panel">
+        <div class="history-header">
+            <span><i class="fa-solid fa-clock-rotate-left"></i> Recent Activity</span>
+            <button class="clear-history" onclick="clearHistory()">Clear All</button>
+        </div>
+        <ul class="history-list" id="history-list">
+            <li class="empty-history">No recent conversions</li>
+        </ul>
+    </div>
+
+    <!-- Theme Control Option -->
+    <button class="toggle" id="theme-toggle" onclick="toggleMode()">
+        <i class="fa-solid fa-moon"></i> <span>Toggle Dark Mode</span>
+    </button>
 </div>
 
 <script src="script.js"></script>
-
 </body>
 </html>
