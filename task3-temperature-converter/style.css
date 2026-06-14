@@ -6,29 +6,58 @@
 
 body {
     font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-    background: linear-gradient(135deg, #4f46e5, #7c3aed);
+    /* Rich multi-point pastel mesh gradient for Light Mode */
+    background: radial-gradient(at 0% 0%, #e0e7ff 0px, transparent 50%),
+                radial-gradient(at 100% 0%, #fae8ff 0px, transparent 50%),
+                radial-gradient(at 50% 100%, #e0f2fe 0px, transparent 50%);
+    background-color: #f8fafc;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    transition: background 0.4s ease, color 0.4s ease;
+    transition: background 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+    position: relative;
+}
+
+/* Subtle atmospheric neon orb in the background */
+body::before {
+    content: '';
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
+    top: 15%;
+    left: 20%;
+    z-index: 1;
+    pointer-events: none;
 }
 
 .container {
-    background: #ffffff;
-    padding: 35px 30px;
-    border-radius: 16px;
+    position: relative;
+    z-index: 2;
+    /* Frosted glass effect */
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    padding: 40px 30px;
+    border-radius: 24px;
     text-align: center;
     width: 360px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-    animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-    border: 1px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 20px 50px rgba(31, 38, 135, 0.08),
+                inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    animation: slideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 h1 {
-    font-size: 1.55rem;
-    font-weight: 700;
-    color: #1e293b;
+    font-size: 1.6rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    /* Vibrant gradient text style */
+    background: linear-gradient(135deg, #4f46e5, #ec4899);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
     margin-bottom: 25px;
     display: flex;
     align-items: center;
@@ -44,12 +73,13 @@ h1 {
 }
 
 input, select {
-    padding: 12px 14px;
-    border-radius: 8px;
-    border: 1px solid #cbd5e1;
-    background-color: #f8fafc;
+    padding: 13px 16px;
+    border-radius: 12px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    background-color: rgba(255, 255, 255, 0.8);
     color: #1e293b;
     font-size: 0.95rem;
+    font-weight: 500;
     outline: none;
     transition: all 0.25s ease;
 }
@@ -61,119 +91,153 @@ input::placeholder {
 input:focus, select:focus {
     border-color: #6366f1;
     background-color: #ffffff;
-    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15);
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.12);
+}
+
+/* Chrome/Safari/Opera/Edge inner spin button removal */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 button {
     width: 100%;
-    padding: 12px;
+    padding: 13px;
     border: none;
-    border-radius: 8px;
-    background: linear-gradient(135deg, #4f46e5, #7c3aed);
+    border-radius: 12px;
+    /* Vibrant dynamic multi-gradient accent */
+    background: linear-gradient(135deg, #4f46e5, #8b5cf6, #ec4899);
+    background-size: 150% 150%;
     color: white;
-    font-size: 1rem;
-    font-weight: 600;
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
     cursor: pointer;
-    transition: all 0.25s ease;
-    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.25);
 }
 
 button:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 6px 15px rgba(79, 70, 229, 0.35);
-    filter: brightness(1.08);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4);
+    filter: brightness(1.05);
 }
 
 button:active {
-    transform: translateY(1px);
+    transform: translateY(0);
 }
 
 .result {
     margin-top: 24px;
-    padding: 14px;
-    border-radius: 8px;
-    background-color: #f1f5f9;
-    border: 1px dashed #cbd5e1;
+    padding: 16px;
+    border-radius: 12px;
+    background-color: rgba(241, 245, 249, 0.8);
+    border: 1px dashed rgba(0, 0, 0, 0.1);
     color: #1e293b;
     font-weight: 700;
-    font-size: 1.15rem;
+    font-size: 1.2rem;
     transition: all 0.3s ease;
-    min-height: 52px;
+    min-height: 56px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-/* Toggle Dark Mode Button */
+/* Minimal translucent style for toggle button */
 button.toggle {
-    background: transparent;
-    border: 1px solid #cbd5e1;
-    color: #64748b;
-    font-size: 0.85rem;
-    font-weight: 500;
-    margin-top: 20px;
+    background: rgba(0, 0, 0, 0.04);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    color: #475569;
+    font-size: 0.82rem;
+    font-weight: 600;
+    margin-top: 24px;
     box-shadow: none;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 6px;
+    width: auto;
+    padding: 8px 16px;
 }
 
 button.toggle:hover {
-    background: #f1f5f9;
-    color: #1e293b;
-    border-color: #94a3b8;
+    background: rgba(0, 0, 0, 0.08);
+    color: #0f172a;
+    border-color: rgba(0, 0, 0, 0.15);
     box-shadow: none;
-    transform: none;
+    transform: translateY(-1px);
 }
 
-/* Dark Mode Styling */
+/* ==========================================
+   Dark Mode Styling (OBSIDIAN & NEON SPACE)
+   ========================================== */
 .dark {
-    background: linear-gradient(135deg, #0f172a, #020617);
+    /* Cosmic neon space background grid */
+    background: radial-gradient(at 0% 0%, #1e1b4b 0px, transparent 50%),
+                radial-gradient(at 50% 0%, #311042 0px, transparent 50%),
+                radial-gradient(at 100% 0%, #090d16 0px, transparent 50%),
+                radial-gradient(at 0% 100%, #1e1b4b 0px, transparent 50%),
+                radial-gradient(at 100% 100%, #020617 0px, transparent 50%);
+    background-color: #030712;
+}
+
+.dark::before {
+    background: radial-gradient(circle, rgba(236, 72, 153, 0.12) 0%, transparent 70%);
 }
 
 .dark .container {
-    background: #1e293b;
-    border-color: rgba(255, 255, 255, 0.05);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    background: rgba(15, 23, 42, 0.45);
+    border-color: rgba(255, 255, 255, 0.07);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.55),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
 .dark h1 {
-    color: #f8fafc;
+    background: linear-gradient(135deg, #a5b4fc, #f472b6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .dark input, .dark select {
-    background-color: #0f172a;
-    border-color: #334155;
+    background-color: rgba(15, 23, 42, 0.6);
+    border-color: rgba(255, 255, 255, 0.08);
     color: #f8fafc;
 }
 
+.dark input::placeholder {
+    color: #475569;
+}
+
 .dark input:focus, .dark select:focus {
-    border-color: #818cf8;
-    box-shadow: 0 0 0 4px rgba(129, 140, 248, 0.2);
+    border-color: #a78bfa;
+    box-shadow: 0 0 0 4px rgba(167, 139, 250, 0.15);
+    background-color: rgba(15, 23, 42, 0.85);
 }
 
 .dark .result {
-    background-color: #0f172a;
-    border-color: #334155;
+    background-color: rgba(15, 23, 42, 0.7);
+    border-color: rgba(255, 255, 255, 0.08);
     color: #f8fafc;
 }
 
 .dark button.toggle {
-    border-color: #334155;
+    background: rgba(255, 255, 255, 0.03);
+    border-color: rgba(255, 255, 255, 0.08);
     color: #94a3b8;
 }
 
 .dark button.toggle:hover {
-    background: #334155;
+    background: rgba(255, 255, 255, 0.08);
     color: #f8fafc;
+    border-color: rgba(255, 255, 255, 0.15);
 }
 
-/* Fade-in Animation */
-@keyframes fadeIn {
+/* Entrance Animation */
+@keyframes slideUp {
     from {
         opacity: 0;
-        transform: scale(0.96) translateY(10px);
+        transform: scale(0.95) translateY(15px);
     }
     to {
         opacity: 1;
@@ -184,7 +248,7 @@ button.toggle:hover {
 /* Mobile Responsive Adjustments */
 @media(max-width: 480px){
     .container {
-        width: 90%;
-        padding: 25px 20px;
+        width: 88%;
+        padding: 30px 20px;
     }
 }
