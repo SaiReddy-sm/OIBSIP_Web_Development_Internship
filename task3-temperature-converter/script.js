@@ -1,4 +1,4 @@
-// Array to maintain conversion history limit to 3 items
+// Variable to maintain conversion history
 let conversionHistory = [];
 
 function convertTemp() {
@@ -13,7 +13,7 @@ function convertTemp() {
     const outputTwo = document.getElementById("output-two");
     const formulaDisplay = document.getElementById("formula-display");
 
-    // Check if input is empty
+    // If input is empty, clear outputs
     if (tempValue === "") {
         resetOutputs();
         warningBox.textContent = "";
@@ -23,36 +23,36 @@ function convertTemp() {
     const temp = parseFloat(tempValue);
 
     if (isNaN(temp)) {
-        warningBox.textContent = "⚠ Please enter a numerical value.";
+        warningBox.textContent = "⚠ Please enter a valid number.";
         resetOutputs();
         return;
     }
 
-    // Absolute Zero limit validations
+    // Absolute Zero physical limit checks
     if (unit === "celsius" && temp < -273.15) {
-        warningBox.textContent = "⚠ Temperature falls below absolute zero (-273.15 °C)";
+        warningBox.textContent = "⚠ Below Absolute Zero limit (-273.15 °C)";
         resetOutputs();
         return;
     }
     if (unit === "fahrenheit" && temp < -459.67) {
-        warningBox.textContent = "⚠ Temperature falls below absolute zero (-459.67 °F)";
+        warningBox.textContent = "⚠ Below Absolute Zero limit (-459.67 °F)";
         resetOutputs();
         return;
     }
     if (unit === "kelvin" && temp < 0) {
-        warningBox.textContent = "⚠ Temperature falls below absolute zero (0 K)";
+        warningBox.textContent = "⚠ Below Absolute Zero limit (0 K)";
         resetOutputs();
         return;
     }
 
-    // Clear warnings if passing validation
+    // Clear warnings if it passes validations
     warningBox.textContent = "";
 
     let finalOne = 0, finalTwo = 0;
     let labelOneText = "", labelTwoText = "";
     let formulaText = "";
 
-    // Convert based on source unit
+    // Conversion mathematics
     if (unit === "celsius") {
         finalOne = (temp * 9/5) + 32;
         finalTwo = temp + 273.15;
@@ -75,14 +75,14 @@ function convertTemp() {
         formulaText = `Celsius: ${temp}K − 273.15 = ${finalOne.toFixed(2)}°C \n| Fahrenheit: (${temp}K − 273.15) × 9/5 + 32 = ${finalTwo.toFixed(2)}°F`;
     }
 
-    // Populate standard outputs
+    // Populate Results
     labelOne.textContent = labelOneText;
     labelTwo.textContent = labelTwoText;
     outputOne.textContent = `${finalOne.toFixed(2)}`;
     outputTwo.textContent = `${finalTwo.toFixed(2)}`;
     formulaDisplay.textContent = formulaText;
 
-    // Track to history automatically only on valid numbers
+    // Save calculation to history list
     updateHistory(temp, unit, finalOne, labelOneText, finalTwo, labelTwoText);
 }
 
@@ -98,7 +98,7 @@ function clearAll() {
     resetOutputs();
 }
 
-// Copy feature with dynamic temporary visual alert indication
+// Clipboard copying utility
 function copyResult(elementId, buttonElement) {
     const textToCopy = document.getElementById(elementId).textContent;
     if (textToCopy === "--" || textToCopy === "") return;
@@ -110,11 +110,11 @@ function copyResult(elementId, buttonElement) {
             buttonElement.innerHTML = originalIcon;
         }, 1200);
     }).catch(err => {
-        console.error("Could not copy text: ", err);
+        console.error("Copy operation failed: ", err);
     });
 }
 
-// Update History logic listing max 3 items
+// Log history updating rules (maintaining 3 max items)
 function updateHistory(inputVal, inputUnit, outOne, unitOneLabel, outTwo, unitTwoLabel) {
     const formattedUnit = inputUnit === "celsius" ? "°C" : inputUnit === "fahrenheit" ? "°F" : "K";
     const labelOneShort = unitOneLabel.includes("Celsius") ? "°C" : unitOneLabel.includes("Fahrenheit") ? "°F" : "K";
@@ -122,7 +122,7 @@ function updateHistory(inputVal, inputUnit, outOne, unitOneLabel, outTwo, unitTw
     
     const entryText = `${inputVal}${formattedUnit} ➔ ${outOne.toFixed(1)}${labelOneShort} / ${outTwo.toFixed(1)}${labelTwoShort}`;
     
-    // Prevent duplicate entries of the same active conversion in history sequence
+    // Prevent recording repetitive identical history steps
     if (conversionHistory.length > 0 && conversionHistory[0].text === entryText) {
         return;
     }
@@ -159,7 +159,7 @@ function clearHistory() {
     renderHistory();
 }
 
-// Theme handling switching state icons
+// Light & Dark Mode class toggle
 function toggleMode() {
     const isDark = document.body.classList.toggle("dark");
     const themeBtn = document.getElementById("theme-toggle");
